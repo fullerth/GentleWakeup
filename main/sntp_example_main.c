@@ -61,6 +61,7 @@ void app_main()
 
     time_t now;
     struct tm timeinfo;
+    struct tm alarminfo;
     time(&now);
     localtime_r(&now, &timeinfo);
     // Is time set? If not, tm_year will be (1970 - 1900).
@@ -86,8 +87,11 @@ void app_main()
     setenv("TZ", "PST8PDT", 1);
     tzset();
     localtime_r(&now, &timeinfo);
+    localtime_r(&alarm, &alarminfo);
     strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
     ESP_LOGI(TAG, "The current date/time on the West Coast is: %s", strftime_buf);
+    ESP_LOGI(TAG, "Current Hour is: %i. Min is: %i. Sec is: %i", timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+    ESP_LOGI(TAG, "Alarm Hour is: %i. Min is: %i. Sec is: %i", alarminfo.tm_hour, alarminfo.tm_min, alarminfo.tm_sec);
 
     const int deep_sleep_sec = 10;
     ESP_LOGI(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
