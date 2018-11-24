@@ -1,0 +1,55 @@
+{
+  "formatVersion": 3,
+  "id": "root",
+  "ideas": {
+    "1": {
+      "title": "GentleWakeup",
+      "id": 1,
+      "attr": {
+        "position": [
+          -50,
+          -15,
+          1
+        ]
+      },
+      "ideas": {
+        "1": {
+          "title": "Alarm",
+          "id": "2.41ee.ad24b2c11-9f62.e988618e5",
+          "ideas": {}
+        },
+        "2": {
+          "title": "Time Service",
+          "id": "3.41ee.ad24b2c11-9f62.e988618e5",
+          "attr": {}
+        },
+        "-1": {
+          "title": "Light control",
+          "id": "4.41ee.ad24b2c11-9f62.e988618e5",
+          "ideas": {
+            "1": {
+              "title": "PWM",
+              "id": "5.41ee.ad24b2c11-9f62.e988618e5"
+            }
+          }
+        },
+        "-11": {
+          "title": "User Interface",
+          "id": "6.41ee.ad24b2c11-9f62.e988618e5",
+          "ideas": {
+            "1": {
+              "title": "Wireless",
+              "id": "7.41ee.ad24b2c11-9f62.e988618e5",
+              "ideas": {}
+            },
+            "2": {
+              "title": "Physical",
+              "id": "9.41ee.ad24b2c11-9f62.e988618e5"
+            }
+          }
+        }
+      }
+    }
+  },
+  "title": "GentleWakeup"
+}
