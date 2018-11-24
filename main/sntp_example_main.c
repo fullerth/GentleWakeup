@@ -20,6 +20,8 @@
 #include "esp_sleep.h"
 #include "nvs_flash.h"
 
+#include "time_service.h"
+
 #include "lwip/err.h"
 #include "apps/sntp/sntp.h"
 
