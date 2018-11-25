@@ -79,7 +79,7 @@ void app_main()
     RTC_DATA_ATTR static time_t alarm;
     RTC_DATA_ATTR static uint8_t init_once = 0;
     if(init_once == 0) {
-        alarm = now + 60;
+        alarm = now + 30;
         init_once = 1;
     }
     ESP_LOGI(TAG, "Time is: %lu", now);
@@ -94,6 +94,10 @@ void app_main()
     ESP_LOGI(TAG, "The current date/time on the West Coast is: %s", strftime_buf);
     ESP_LOGI(TAG, "Current Hour is: %i. Min is: %i. Sec is: %i", timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
     ESP_LOGI(TAG, "Alarm Hour is: %i. Min is: %i. Sec is: %i", alarminfo.tm_hour, alarminfo.tm_min, alarminfo.tm_sec);
+
+    if(alarminfo.tm_hour == timeinfo.tm_hour && alarminfo.tm_min == timeinfo.tm_min && alarminfo.tm_sec < timeinfo.tm_sec) {
+        ESP_LOGI(TAG, "ALARM ACTIVE!");
+    }
 
     const int deep_sleep_sec = 10;
     ESP_LOGI(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
