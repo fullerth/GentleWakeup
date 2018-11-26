@@ -9,21 +9,12 @@
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/event_groups.h"
-#include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event_loop.h"
 #include "esp_log.h"
-#include "esp_attr.h"
-#include "esp_sleep.h"
-#include "nvs_flash.h"
 
 #include "time_service.h"
+#include "alarm.h"
 
 #include "lwip/err.h"
-#include "apps/sntp/sntp.h"
 
 static const char *TAG = "example";
 
@@ -40,7 +31,6 @@ void app_main()
 
     time_t now;
     struct tm timeinfo;
-    struct tm alarminfo;
     time(&now);
     localtime_r(&now, &timeinfo);
     // Is time set? If not, tm_year will be (1970 - 1900).
@@ -53,26 +43,25 @@ void app_main()
     }
     char strftime_buf[64];
 
-    RTC_DATA_ATTR static time_t alarm;
     RTC_DATA_ATTR static uint8_t init_once = 0;
     if(init_once == 0) {
-        alarm = now + 30;
+        alarm_create_new(now + 30);
         init_once = 1;
     }
     ESP_LOGI(TAG, "Time is: %lu", now);
-    ESP_LOGI(TAG, "Alarm is: %lu", alarm);
+    //ESP_LOGI(TAG, "Alarm is: %lu", alarm);
 
     // Set timezone to Pacific Standard Time and print local time
     setenv("TZ", "PST8PDT", 1);
     tzset();
     localtime_r(&now, &timeinfo);
-    localtime_r(&alarm, &alarminfo);
+    //localtime_r(&alarm, &alarminfo);
     strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
     ESP_LOGI(TAG, "The current date/time on the West Coast is: %s", strftime_buf);
     ESP_LOGI(TAG, "Current Hour is: %i. Min is: %i. Sec is: %i", timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
-    ESP_LOGI(TAG, "Alarm Hour is: %i. Min is: %i. Sec is: %i", alarminfo.tm_hour, alarminfo.tm_min, alarminfo.tm_sec);
+    //ESP_LOGI(TAG, "Alarm Hour is: %i. Min is: %i. Sec is: %i", alarminfo.tm_hour, alarminfo.tm_min, alarminfo.tm_sec);
 
-    if(alarminfo.tm_hour == timeinfo.tm_hour && alarminfo.tm_min == timeinfo.tm_min && alarminfo.tm_sec < timeinfo.tm_sec) {
+    if(is_alarm_active(now)) {
         ESP_LOGI(TAG, "ALARM ACTIVE!");
     }
 
