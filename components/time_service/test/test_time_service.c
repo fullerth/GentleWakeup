@@ -1,6 +1,6 @@
 #include "unity.h"
 
-TEST_CASE("ASSERT_FALSE")
+void test_assert_false()
 {
     TEST_ASSERT(0);
 }

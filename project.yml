@@ -11,15 +11,10 @@
   :use_deep_dependencies: TRUE
   :use_auxiliary_dependencies: TRUE
   :build_root: build
-#  :release_build: TRUE
   :test_file_prefix: test_
   :which_ceedling: vendor/ceedling
   :default_tasks:
     - test:all
-
-#:release_build:
-#  :output: MyApp.out
-#  :use_assembly: FALSE
 
 :environment:
 
@@ -30,9 +25,10 @@
   :test:
     - components/**/test
   :source:
-    - src/**
+    - components/*
+    - components/**/include
   :support:
-    - test/support
+    - components/**/test/support
 
 :defines:
   # in order to add common defines:
