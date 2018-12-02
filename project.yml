@@ -28,9 +28,7 @@
 
 :paths:
   :test:
-    - +:components/alarm/test/**
-    - +:components/time_service/test/**
-    - -:test/support
+    - components/**/test
   :source:
     - src/**
   :support:
